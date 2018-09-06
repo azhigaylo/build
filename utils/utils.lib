@@ -1,0 +1,213 @@
+#!/bin/bash
+
+# this script provides utility functions
+
+set -e
+
+#source $( dirname $( realpath -s ${BASH_SOURCE[0]} ))/common_defs.sh
+
+exec_sudo_cmd()
+{
+    echo " ---> !!!(ROOT PERMISSIONS REQUIRED) Execute sudo cmd: '$@'"
+    sudo $@
+}
+
+install_package()
+{
+    echo " ---> Installing packages '$@' via apt-get..."
+    exec_sudo_cmd apt-get install -y $@
+}
+
+remove_directory()
+{
+    local readonly dir_to_clean="$1";
+    if [ -d "$dir_to_clean" ] && [ -n "$dir_to_clean" ] && [ "$dir_to_clean" != "$undefined_value" ] && [ "$dir_to_clean" != "/" ]
+    then
+        echo " ---> Removing directory '$dir_to_clean' .."
+        rm -rf "$dir_to_clean"
+    fi
+}
+
+on_abort()
+{
+    if [ "$#" -eq 0 ]
+    then
+        echo "Usage: $FUNCNAME message" >&2
+        exit 1
+    fi
+
+    echo >&2 "
+***************************************************
+*** ABORTED: $@
+***************************************************
+"
+    trap : 0
+    exit 1
+}
+
+on_startup()
+{
+    if [ "$#" -eq 0 ]
+    then
+        echo "Usage: $FUNCNAME message" >&2
+        exit 1
+    fi
+
+    echo "
+***********************************************
+*** STARTUP: $@
+***********************************************"
+}
+
+on_success()
+{
+    local readonly rv=$?
+    if [ "$#" -eq 0 ]
+    then
+        echo "Usage: $FUNCNAME message" >&2
+        exit 1
+    fi
+
+    if [ $rv -ne 0 ]
+    then
+        on_abort $@
+    fi
+
+    echo "
+***********************************************
+*** DONE: $@
+***********************************************
+"
+    trap : 0
+    exit $rv
+}
+
+check_if_cur_user_has_write_permissions()
+{
+    local directory_to_check=$1
+    if [ $directory_to_check == $undefined_value ]
+    then
+        printf "false";
+        return 0;
+    fi
+
+    if [ -w $directory_to_check ]
+    then
+        printf "true"
+    else
+        printf "false"
+    fi
+
+    return 0
+}
+
+build_make_project()
+{
+    if [ -z "$1" ]
+    then
+        echo -e " ---> \033[0;31m!!!ERROR: make working directory MUST be specified.\033[0m"
+        exit 1
+    fi
+
+    local _make_project_root_path=$1
+    echo " ---> Running 'make -C $_make_project_root_path $make_arg_list'.."
+    make -C $_make_project_root_path $make_arg_list
+    if [ $need_install == true ]
+    then
+        if [ $( check_if_cur_user_has_write_permissions $install_prefix_path ) = "true" ]
+        then
+            echo " ---> Running 'make -C $_make_project_root_path $make_arg_list install'"
+            make -C $_make_project_root_path $make_arg_list install
+        else
+            exec_sudo_cmd make -C $_make_project_root_path $make_arg_list install
+        fi
+
+        exec_sudo_cmd ldconfig
+
+        echo "$target_name have been successfully installed!"
+    fi
+}
+
+# If no path to root cmake list specified than root source project directory will be used
+build_cmake_project()
+{
+    if [ -z "$1" ]
+    then
+        echo -e " ---> \033[0;31m!!!ERROR: source directory MUST be specified.\033[0m"
+        exit 1
+    fi
+
+    local _module_source_path=$1
+
+    if [ -z "$2" ]
+    then
+        echo -e " ---> \033[0;31m!!!ERROR: install directory MUST be specified.\033[0m"
+        exit 1
+    fi
+
+    local _module_install_path=$2
+    cmake_arg_list+=" -DCMAKE_INSTALL_PREFIX=$_module_install_path ";
+
+    cd $_module_install_path
+    echo " ---> Running 'cmake $cmake_arg_list $_modulex_source_path'"
+    cmake $cmake_arg_list $_module_source_path
+    cd -
+
+    build_make_project $_module_install_path
+}
+
+# version_compare <v1> <v2> function
+# "=" if equal
+# ">" if v1 greater than v2
+# "<" if v1 less than v2
+version_compare () {
+    if [[ $1 == $2 ]]
+    then
+        printf "="
+        return 0;
+    fi
+
+    local IFS=.
+    local i ver1=($1) ver2=($2)
+    # fill empty fields in ver1 with zeros
+    for ((i=${#ver1[@]}; i<${#ver2[@]}; i++))
+    do
+        ver1[i]=0
+    done
+    for ((i=0; i<${#ver1[@]}; i++))
+    do
+        if [[ -z ${ver2[i]} ]]
+        then
+            # fill empty fields in ver2 with zeros
+            ver2[i]=0
+        fi
+        if ((10#${ver1[i]} > 10#${ver2[i]}))
+        then
+            printf ">"
+            return 0;
+        fi
+        if ((10#${ver1[i]} < 10#${ver2[i]}))
+        then
+            printf "<"
+            return 0;
+        fi
+    done
+
+    printf "="
+    return 0;
+}
+
+# usage generate_versioned_target_name <target_name> <major.minor.patch>
+generate_versioned_target_name()
+{
+    if [ -z "$1" ] || [ -z "$2" ]
+    then
+        return -1
+    fi
+
+    local _target_name=$1
+    local _target_version=$2
+    local _versioned_target_name="$_target_name"_`echo $_target_version | sed 's/\./_/g'`
+    printf "$_versioned_target_name";
+}
+

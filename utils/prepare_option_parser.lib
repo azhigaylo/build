@@ -1,0 +1,118 @@
+#!/bin/bash
+
+# this script parses options and prepares next variables that MUST be initialized
+# after this script was sourced
+#
+# with_clean
+# need_install
+# force_mode
+# source_root_path       - source root direcory
+# third_party_root_path  - third party path inside of source root directory
+# products_root_path     - products root directory
+# script_root_path       - where all script utils located
+
+#
+# ----------------helpers-------------------------------------------------------------------
+#
+get_project_source_root_path()
+{
+    readonly local _project_source_root_path=$( dirname $script_root_path )
+    printf $_project_source_root_path;
+    return 0;
+}
+
+get_products_root_path()
+{
+    readonly local _project_name=$( basename $( dirname $script_root_path ))
+    readonly local _products_root_path=$( dirname $( get_project_source_root_path ))/"$_project_name"_products
+    printf $_products_root_path;
+    return 0;
+}
+
+show_usage_and_exit()
+{
+if [ -n "$1" ]
+then
+    printf "$1\n\n"
+fi
+
+readonly scriptname=`basename "$0"`;
+
+echo -e "\033[0;45m usage: $scriptname [-h, --help] [-c, --clean] [-f, --force] [-i, --install]\033[0m
+
+    <<< Prepare Host Options  >>>
+
+optional arguments:
+  -h, --help                  Show this help message and exit
+  -i, --install               Perform install.
+  -c, --clean                 Clean all previous downloads and products directories
+  -f, --force                 Force rebuild and install if requested"
+
+    exit 0;
+}
+
+#
+# ----------------script start----------------------------------------------------------
+#
+
+with_clean=false
+need_install=false
+force_mode=false
+
+# translate long options to short
+for ((i=1;$#;i++)) ; do
+    case "$1" in
+        --                      ) EndOpt=1 ;;&
+        --help                  ) ((EndOpt)) && args[$i]="$1" || args[$i]="-h";;
+        --install               ) ((EndOpt)) && args[$i]="$1" || args[$i]="-i";;
+        --clean                 ) ((EndOpt)) && args[$i]="$1" || args[$i]="-c";;
+        --force                 ) ((EndOpt)) && args[$i]="$1" || args[$i]="-f";;
+        *                       ) args[$i]="$1" ;;
+    esac
+    shift
+done
+# reset the translated args
+set -- "${args[@]}"
+
+readonly options='hicf'
+while getopts $options opt; 
+do
+    case "$opt" in
+        h) show_usage_and_exit ;;
+        i) need_install=true;
+           echo " ---> Install option have been set" ;;
+        c) with_clean=true;
+           echo " ---> Clean option have been set" ;;
+        f) force_mode=true;
+           echo " ---> Force option have been set" ;;
+        * ) echo "Unrecognized option: -$OPTARG" >&2; exit 1;;
+      esac
+done
+shift $(( OPTIND - 1 ))
+
+if [ $need_install == false ]
+then
+    echo -e " ---> \033[0;41m!!!CAUTION: ${0##*/} have been called without --install option. Installation will be disabled.\033[0m"
+    while true
+    do
+        read -r -p " ---> Are you sure you want to continue (y/N)?: " choice
+        choice=${choice,,} # tolower
+        if [[ $choice =~ ^(yes|y| ) ]]
+        then
+            break
+        elif [[ $choice =~ ^(no|n| ) ]] || [ -z $choice ]
+        then
+            echo " ---> Preparation CANCELED."
+            exit 1
+        fi
+    done
+fi
+
+# script_root_path       - where all script utils located
+# third_party_root_path  - third party path inside of source root directory
+# products_root_path     - products root directory
+
+readonly script_root_path="$( dirname $( realpath -s $0} ) )"
+readonly third_party_source_root_path=$( get_project_source_root_path )/third_party
+readonly products_root_path=$( get_products_root_path )
+
