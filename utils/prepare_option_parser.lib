@@ -29,6 +29,14 @@ get_products_root_path()
     return 0;
 }
 
+get_install_prefix_path()
+{
+    readonly local _project_name=$( basename $( dirname $script_root_path ))
+    readonly local _install_prefix_path=$( dirname $( get_project_source_root_path ))/"$_project_name"_third_party
+    printf $_install_prefix_path;
+    return 0;
+}
+
 show_usage_and_exit()
 {
 if [ -n "$1" ]
@@ -115,4 +123,5 @@ fi
 readonly script_root_path="$( dirname $( realpath -s $0} ) )"
 readonly third_party_source_root_path=$( get_project_source_root_path )/third_party
 readonly products_root_path=$( get_products_root_path )
+readonly install_prefix_path=$( get_install_prefix_path )
 

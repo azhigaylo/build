@@ -18,8 +18,9 @@ source $( dirname $( realpath -s $0 ))/utils/prepare_option_parser.lib
 echo "
 ***********************************************
 used path:
-   products path           = $products_root_path
-   third party source path = $third_party_source_root_path
+   products path            = $products_root_path
+   third party install path = $install_prefix_path
+   third party source path  = $third_party_source_root_path
 ***********************************************"
 
 echo " ---> Prepare tools and libraries..."

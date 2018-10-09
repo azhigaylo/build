@@ -42,7 +42,7 @@ then
     readonly version_compare_result=$(version_compare $qt5_version $qt5_required_version)
 
     case $version_compare_result in
-        "="|"<") echo -e " ---> \033[0;41m!!!CAUTION: QT5 version required $qt5_required_version.\033[0m"; exit 0; ;;                 
+        "="|"<") echo -e " ---> \033[0;41m!!!CAUTION: QT5 version required $qt5_required_version.\033[0m"; exit 0; ;;
         ">")   echo " ---> QT5 version OK"; ;;
     esac
 else

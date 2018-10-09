@@ -84,23 +84,32 @@ then
     #git -C $module_source_root_path reset --hard "v$required_version"
 fi
 
-readonly module_install_root_path="$products_root_path/$target_name"
-echo " ---> Install path for '$target_name' = $module_install_root_path"
+readonly module_products_root_path="$products_root_path/$target_name"
+echo " ---> Products path for '$target_name' = $module_products_root_path"
 
-if ! [ -d $module_install_root_path ]
+if ! [ -d $module_products_root_path ]
 then
-    mkdir -vp $module_install_root_path
-    echo " ---> Create $module_install_root_path"
+    mkdir -vp $module_products_root_path
+    echo " ---> Create $module_products_root_path"
 fi
 
-bootstrap_options+=" --prefix=$module_install_root_path"
+readonly module_install_prefix_path="$install_prefix_path/$target_name"
+echo " ---> Products path for '$target_name' = $module_install_prefix_path"
+
+if ! [ -d $module_install_prefix_path ]
+then
+    mkdir -vp $module_install_prefix_path
+    echo " ---> Create $module_install_prefix_path"
+fi
+
+bootstrap_options+=" --prefix=$module_install_prefix_path"
 
 # option --system-curl needed for ExternalProject_Add to work with 'https' protocol
 bootstrap_options+=" --system-curl --parallel=-j`nproc` "
 
-cd $module_install_root_path
+cd $module_products_root_path
 echo " ---> Running $module_source_root_path/bootstrap $bootstrap_options"
 eval $module_source_root_path/bootstrap $bootstrap_options
 cd -
 
-build_make_project $module_install_root_path
+build_make_project $module_products_root_path

@@ -14,7 +14,7 @@ set -e
 source $( dirname $( realpath -s $0 ))/utils/prepare_option_parser.lib
 
 # mosquito do not have installation procedure
-need_install=false
+#need_install=true
 
 readonly target_name=mosquitto
 readonly required_version="1.5.1"
@@ -43,20 +43,29 @@ then
     git -C $module_source_root_path reset --hard "v$required_version"
 fi
 
-readonly module_install_root_path="$products_root_path/$target_name"
-echo " ---> Install path for '$target_name' = $module_install_root_path"
+readonly module_products_root_path="$products_root_path/$target_name"
+echo " ---> Products path for '$target_name' = $module_products_root_path"
 
-if ! [ -d $module_install_root_path ]
+if ! [ -d $module_products_root_path ]
 then
-    mkdir -vp $module_install_root_path
-    echo " ---> Create $module_install_root_path"
+    mkdir -vp $module_products_root_path
+    echo " ---> Create $module_products_root_path"
+fi
+
+readonly module_install_prefix_path="$install_prefix_path/$target_name"
+echo " ---> Products path for '$target_name' = $module_install_prefix_path"
+
+if ! [ -d $module_install_prefix_path ]
+then
+    mkdir -vp $module_install_prefix_path
+    echo " ---> Create $module_install_prefix_path"
 fi
 
 # do NOT use dlt-dbus
-cmake_arg_list=" "
+cmake_arg_list+="-DCMAKE_BUILD_TYPE=\"Release\" -DDOCUMENTATION=OFF"
 
 # build project based on CMake build system
 # install if requested
-build_cmake_project $module_source_root_path $module_install_root_path
+build_cmake_project $module_source_root_path $module_products_root_path $module_install_prefix_path
 
 

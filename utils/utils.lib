@@ -141,19 +141,21 @@ build_cmake_project()
 
     if [ -z "$2" ]
     then
-        echo -e " ---> \033[0;31m!!!ERROR: install directory MUST be specified.\033[0m"
+        echo -e " ---> \033[0;31m!!!ERROR: products directory MUST be specified.\033[0m"
         exit 1
     fi
 
-    local _module_install_path=$2
+    local _module_poducts_path=$2
+    local _module_install_path=$3
+
     cmake_arg_list+=" -DCMAKE_INSTALL_PREFIX=$_module_install_path ";
 
-    cd $_module_install_path
+    cd $_module_poducts_path
     echo " ---> Running 'cmake $cmake_arg_list $_modulex_source_path'"
     cmake $cmake_arg_list $_module_source_path
     cd -
 
-    build_make_project $_module_install_path
+    build_make_project $_module_poducts_path
 }
 
 # version_compare <v1> <v2> function
