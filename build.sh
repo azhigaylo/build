@@ -23,7 +23,8 @@ echo "
 ***********************************************
 used path:
    products path  = $products_root_path
-   source path 	  = $source_root_path
+   source path    = $source_root_path
+   project path   = $projects_root_path
 ***********************************************"
 
 echo " ---> Create poducts dir if it's need.."
@@ -33,6 +34,15 @@ then
 else
   echo "$products_root_path NOT exists, create it"
   mkdir $products_root_path
+fi
+
+echo " ---> Create projects dir if it's need.."
+if [ -d $projects_root_path ]
+then
+  echo "$projects_root_path exists"
+else
+  echo "$projects_root_path NOT exists, create it"
+  mkdir $projects_root_path
 fi
 
 $script_root_path/build_homebrain.sh $arglist

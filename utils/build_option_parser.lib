@@ -28,6 +28,14 @@ get_products_root_path()
     return 0;
 }
 
+get_project_root_path()
+{
+    readonly local _project_name=$( basename $( dirname $script_root_path ))
+    readonly local _project_root_path=$( dirname $( get_project_source_root_path ))/"$_project_name"_projects
+    printf $_project_root_path;
+    return 0;
+}
+
 show_usage_and_exit()
 {
 if [ -n "$1" ]
@@ -87,9 +95,10 @@ shift $(( OPTIND - 1 ))
 # script_root_path       - where all script utils located
 # third_party_root_path  - third party path inside of source root directory
 # products_root_path     - products root directory
+# projectss_root_path    - directory with user projects
 
 readonly script_root_path="$( dirname $( realpath -s $0} ) )"
 readonly source_root_path=$( get_project_source_root_path )
 readonly products_root_path=$( get_products_root_path )
-
+readonly projects_root_path=$( get_project_root_path )
 
