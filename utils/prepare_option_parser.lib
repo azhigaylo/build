@@ -54,9 +54,10 @@ optional arguments:
   -h, --help                  Show this help message and exit
   -i, --install               Perform install.
   -c, --clean                 Clean all previous downloads and products directories
-  -f, --force                 Force rebuild and install if requested"
+  -f, --force                 Force rebuild and install if requested
+  -t, --target                Preparetion for target (crosscompilation)"
 
-    exit 0;
+  exit 0;
 }
 
 #
@@ -66,6 +67,8 @@ optional arguments:
 with_clean=false
 need_install=false
 force_mode=false
+cross_mode=false
+build_type=host
 
 # translate long options to short
 for ((i=1;$#;i++)) ; do
@@ -75,6 +78,7 @@ for ((i=1;$#;i++)) ; do
         --install               ) ((EndOpt)) && args[$i]="$1" || args[$i]="-i";;
         --clean                 ) ((EndOpt)) && args[$i]="$1" || args[$i]="-c";;
         --force                 ) ((EndOpt)) && args[$i]="$1" || args[$i]="-f";;
+        --target                ) ((EndOpt)) && args[$i]="$1" || args[$i]="-t";;
         *                       ) args[$i]="$1" ;;
     esac
     shift
@@ -82,17 +86,20 @@ done
 # reset the translated args
 set -- "${args[@]}"
 
-readonly options='hicf'
+readonly options='hicft'
 while getopts $options opt; 
 do
     case "$opt" in
         h) show_usage_and_exit ;;
         i) need_install=true;
-           echo " ---> Install option have been set" ;;
+           echo " ---> Install option have been set";;
         c) with_clean=true;
-           echo " ---> Clean option have been set" ;;
+           echo " ---> Clean option have been set";;
         f) force_mode=true;
-           echo " ---> Force option have been set" ;;
+           echo " ---> Force option have been set";;
+        t) cross_mode=true;
+           build_type=cross;
+           echo " ---> Preparetion for target option have been set";;
         * ) echo "Unrecognized option: -$OPTARG" >&2; exit 1;;
       esac
 done
@@ -122,6 +129,6 @@ fi
 
 readonly script_root_path="$( dirname $( realpath -s $0} ) )"
 readonly third_party_source_root_path=$( get_project_source_root_path )/third_party
-readonly products_root_path=$( get_products_root_path )
-readonly install_prefix_path=$( get_install_prefix_path )
+readonly products_root_path="$( get_products_root_path )/$build_type"
+readonly install_prefix_path="$( get_install_prefix_path )/$build_type"
 

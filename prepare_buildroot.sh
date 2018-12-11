@@ -1,6 +1,7 @@
 #!/bin/bash
 
 #according to instructions of https://bootlin.com/doc/training/buildroot/buildroot-labs.pdf
+# buildroot do not have installation procedure
 
 source $( dirname $( realpath -s $0 ) )/utils/utils.lib
 
@@ -13,10 +14,14 @@ set -e
 # parse cmd options.
 source $( dirname $( realpath -s $0 ))/utils/prepare_option_parser.lib
 
-# buildroot do not have installation procedure
-
 readonly target_name=buildroot
 readonly repolink="https://git.buildroot.net/git/buildroot.git"
+
+if [ "$cross_mode" = true ]
+then
+    echo " --->'$target_name' will be skipped, needed only for target"
+    exit 0;
+fi
 
 libs_to_install=" binutils patch gzip bzip2 perl tar cpio python unzip rsync wget libncurses-dev "
 
@@ -25,7 +30,7 @@ install_package $libs_to_install
 
 echo " ---> Required packages have been successfully installed."
 
-readonly module_install_path="$install_prefix_path/host/$target_name"
+readonly module_install_path="$install_prefix_path/$target_name"
 echo " ---> Products path for '$target_name' = $module_install_path"
 
 if [ "$with_clean" = true ]

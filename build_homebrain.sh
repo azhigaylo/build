@@ -16,21 +16,21 @@ readonly target_name=homebrain
 readonly module_source_root_path="$source_root_path/$target_name"
 echo " ---> Source path for '$target_name' = $module_source_root_path"
 
-readonly module_install_root_path="$products_root_path/$target_name"
+readonly module_products_root_path="$products_root_path/$target_name"
 echo " ---> Install path for '$target_name' = $module_install_root_path"
 
 if [ "$with_clean" = true ]
 then
-    remove_directory $module_install_root_path
+    remove_directory $module_products_root_path
 fi
 
-if ! [ -d $module_install_root_path ]
+if ! [ -d $module_products_root_path ]
 then
-    mkdir -vp $module_install_root_path
-    echo " ---> Create $module_install_root_path"
+    mkdir -vp $module_products_root_path
+    echo " ---> Create $module_products_root_path"
 fi
 
 # build project based on CMake build system
-build_cmake_project $module_source_root_path $module_install_root_path
+build_cmake_project $module_source_root_path $module_products_root_path
 
 

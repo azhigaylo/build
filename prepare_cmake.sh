@@ -17,6 +17,12 @@ readonly target_name="CMake"
 readonly required_version="3.11.1"
 readonly repolink="https://github.com/Kitware/CMake.git"
 
+if [ "$cross_mode" = true ]
+then
+    echo " --->'$target_name' will be skipped, needed only for host"
+    exit 0;
+fi
+
 # check if exists
 target_found=true
 cmake --version >/dev/null 2>&1 || { target_found=false; echo " ---	> $target_name have NOT been installed."; }

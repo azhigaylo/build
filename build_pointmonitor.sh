@@ -16,18 +16,18 @@ readonly target_name=pointmonitor
 readonly module_source_root_path="$source_root_path/$target_name"
 echo " ---> Source path for '$target_name' = $module_source_root_path"
 
-readonly module_install_root_path="$products_root_path/$target_name"
+readonly module_products_root_path="$products_root_path/$target_name"
 echo " ---> Install path for '$target_name' = $module_install_root_path"
 
 if [ "$with_clean" = true ]
 then
-    remove_directory $module_install_root_path
+    remove_directory $module_products_root_path
 fi
 
-if ! [ -d $module_install_root_path ]
+if ! [ -d $module_products_root_path ]
 then
-    mkdir -vp $module_install_root_path
-    echo " ---> Create $module_install_root_path"
+    mkdir -vp $module_products_root_path
+    echo " ---> Create $module_products_root_path"
 fi
 
 # find QT locaton
@@ -56,6 +56,6 @@ readonly qt5_lib_cmake_dir="$qt5_lib_dir"/cmake/Qt5
 cmake_arg_list=" -DCMAKE_PREFIX_PATH=$qt5_lib_cmake_dir "
 
 # build project based on CMake build system
-build_cmake_project $module_source_root_path $module_install_root_path
+build_cmake_project $module_source_root_path $module_products_root_path
 
 

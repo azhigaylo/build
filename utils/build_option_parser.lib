@@ -52,9 +52,10 @@ echo -e "\033[0;45m usage: $scriptname [-h, --help] [-c, --clean] [-f, --force]\
 optional arguments:
   -h, --help                  Show this help message and exit
   -c, --clean                 Clean all previous downloads and products directories
-  -f, --force                 Force rebuild requested"
+  -f, --force                 Force rebuild requested
+  -t, --target                Crosscompilation requested"
 
-    exit 0;
+  exit 0;
 }
 
 #
@@ -64,6 +65,8 @@ optional arguments:
 with_clean=false
 force_mode=false
 need_install=false
+cross_mode=false
+build_type=host
 # translate long options to short
 for ((i=1;$#;i++)) ; do
     case "$1" in
@@ -71,6 +74,7 @@ for ((i=1;$#;i++)) ; do
         --help                  ) ((EndOpt)) && args[$i]="$1" || args[$i]="-h";;
         --clean                 ) ((EndOpt)) && args[$i]="$1" || args[$i]="-c";;
         --force                 ) ((EndOpt)) && args[$i]="$1" || args[$i]="-f";;
+        --target                ) ((EndOpt)) && args[$i]="$1" || args[$i]="-t";;
         *                       ) args[$i]="$1" ;;
     esac
     shift
@@ -78,15 +82,18 @@ done
 # reset the translated args
 set -- "${args[@]}"
 
-readonly options='hcf'
+readonly options='hcft'
 while getopts $options opt; 
 do
     case "$opt" in
         h) show_usage_and_exit ;;
         c) with_clean=true;
-           echo " ---> Clean option have been set" ;;
+           echo " ---> Clean option have been set";;
         f) force_mode=true;
-           echo " ---> Force option have been set" ;;
+           echo " ---> Force option have been set";;
+        t) cross_mode=true;
+           build_type=cross;
+           echo " ---> Crosscompilation option have been set";;
         * ) echo "Unrecognized option: -$OPTARG" >&2; exit 1;;
       esac
 done
@@ -99,6 +106,5 @@ shift $(( OPTIND - 1 ))
 
 readonly script_root_path="$( dirname $( realpath -s $0} ) )"
 readonly source_root_path=$( get_project_source_root_path )
-readonly products_root_path=$( get_products_root_path )
 readonly projects_root_path=$( get_project_root_path )
-
+readonly products_root_path="$( get_products_root_path )/$build_type"
