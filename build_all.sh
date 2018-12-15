@@ -9,9 +9,13 @@ on_startup "BUILD HOST"
 # exit by any error
 set -e
 
-
 # source all environment variable
-source env.sh
+if [ "$cross_mode" = false ]
+then
+    source env_host.sh
+else
+    source env_cross.sh
+fi
 
 # if --install option is NOT specified
 readonly arglist="$@"

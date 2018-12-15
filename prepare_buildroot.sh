@@ -49,7 +49,7 @@ if [ -d $module_install_path ]
 then
     echo " ---> Make default configuration for $target_name"
     cd $module_install_path
-    make beagleboardx15_defconfig
+    make beaglebone_defconfig_hb
 
     echo " ---> Make $target_name"
     make 2>&1 | tee buildroot.log

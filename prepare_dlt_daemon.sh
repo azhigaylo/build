@@ -93,8 +93,12 @@ cmake_arg_list+=" -DWITH_MAN=OFF "
 cmake_arg_list+=" -DDLT_USER=root "
 cmake_arg_list+=" -DWITH_SYSTEMD=OFF "
 
+if [ "$cross_mode" = true ]
+then
+    cmake_arg_list=" -DCMAKE_TOOLCHAIN_FILE=/home/azhigaylo//project/homebrain/build/cross/hb_toolchain_def.cmake"
+fi
+
 # build project based on CMake build system
 # install if requested
 build_cmake_project $module_source_root_path $module_products_root_path $module_install_prefix_path
-
 
