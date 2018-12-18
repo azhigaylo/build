@@ -71,7 +71,7 @@ then
 fi
 
 readonly module_install_prefix_path="$install_prefix_path/$target_name"
-echo " ---> Products path for '$target_name' = $module_install_prefix_path"
+echo " ---> Install path for '$target_name' = $module_install_prefix_path"
 
 if ! [ -d $module_install_prefix_path ]
 then
@@ -80,8 +80,12 @@ then
 fi
 
 # do NOT use dlt-dbus
-cmake_arg_list=" -DWITH_DLT_DBUS=OFF "
+if [ "$cross_mode" = true ]
+then
+    cmake_arg_list=" -DCMAKE_TOOLCHAIN_FILE=/home/azhigaylo/project/homebrain/build/cross/hb_toolchain_def.cmake "
+fi
 
+cmake_arg_list+=" -DWITH_DLT_DBUS=OFF "
 cmake_arg_list+=" -DWITH_DLT_EXAMPLES=OFF "
 cmake_arg_list+=" -DWITH_DLT_TESTS=OFF "
 cmake_arg_list+=" -DWITH_DLT_UNIT_TESTS=OFF "
@@ -92,11 +96,6 @@ cmake_arg_list+=" -DWITH_DOC=OFF "
 cmake_arg_list+=" -DWITH_MAN=OFF "
 cmake_arg_list+=" -DDLT_USER=root "
 cmake_arg_list+=" -DWITH_SYSTEMD=OFF "
-
-if [ "$cross_mode" = true ]
-then
-    cmake_arg_list=" -DCMAKE_TOOLCHAIN_FILE=/home/azhigaylo//project/homebrain/build/cross/hb_toolchain_def.cmake"
-fi
 
 # build project based on CMake build system
 # install if requested

@@ -9,6 +9,12 @@ on_startup "BUILD HOST"
 # exit by any error
 set -e
 
+# if --install option is NOT specified
+readonly arglist="$@"
+
+# parse cmd options.
+source $( dirname $( realpath -s $0 ))/utils/build_option_parser.lib
+
 # source all environment variable
 if [ "$cross_mode" = false ]
 then
@@ -16,12 +22,6 @@ then
 else
     source env_cross.sh
 fi
-
-# if --install option is NOT specified
-readonly arglist="$@"
-
-# parse cmd options.
-source $( dirname $( realpath -s $0 ))/utils/build_option_parser.lib
 
 echo "
 ***********************************************
@@ -37,7 +37,7 @@ then
   echo "$products_root_path exists"
 else
   echo "$products_root_path NOT exists, create it"
-  mkdir $products_root_path
+  mkdir -p $products_root_path
 fi
 
 echo " ---> Create projects dir if it's need.."
@@ -46,7 +46,7 @@ then
   echo "$projects_root_path exists"
 else
   echo "$projects_root_path NOT exists, create it"
-  mkdir $projects_root_path
+  mkdir -p $projects_root_path
 fi
 
 $script_root_path/build_homebrain.sh $arglist

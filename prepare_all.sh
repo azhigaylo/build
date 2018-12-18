@@ -44,7 +44,7 @@ then
   echo "$products_root_path exists"
 else
   echo "$products_root_path NOT exists, create it"
-  mkdir $products_root_path
+  mkdir -p $products_root_path
 fi
 
 echo " ---> Create third party dir if it's need.."
@@ -53,7 +53,7 @@ then
   echo "$third_party_source_root_path exists"
 else
   echo "$third_party_source_root_path NOT exists, create it"
-  mkdir $third_party_source_root_path
+  mkdir -p $third_party_source_root_path
 fi
 
 $script_root_path/prepare_cmake.sh $arglist
