@@ -118,4 +118,5 @@ echo " ---> Running $module_source_root_path/bootstrap $bootstrap_options"
 eval $module_source_root_path/bootstrap $bootstrap_options
 cd -
 
+./configure
 build_make_project $module_products_root_path
