@@ -14,7 +14,7 @@ set -e
 source $( dirname $( realpath -s $0 ))/utils/prepare_option_parser.lib
 
 readonly target_name="CMake"
-readonly required_version="3.11.1"
+readonly required_version="3.13.0"
 readonly repolink="https://github.com/Kitware/CMake.git"
 
 if [ "$cross_mode" = true ]
@@ -118,5 +118,4 @@ echo " ---> Running $module_source_root_path/bootstrap $bootstrap_options"
 eval $module_source_root_path/bootstrap $bootstrap_options
 cd -
 
-./configure
 build_make_project $module_products_root_path
