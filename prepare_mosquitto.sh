@@ -73,4 +73,8 @@ cmake_arg_list+=" -DCMAKE_BUILD_TYPE=\"Release\" -DDOCUMENTATION=OFF "
 # install if requested
 build_cmake_project $module_source_root_path $module_products_root_path $module_install_prefix_path
 
+library_path_env_variable=$module_install_prefix_path/lib
+cmake_prefix_path_env_variable=$module_install_prefix_path
+pkg_config_path_env_variable=$module_install_prefix_path/lib/pkgconfig
 
+generate_setenv_files $module_install_prefix_path

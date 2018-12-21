@@ -164,8 +164,7 @@ build_cmake_project()
 
     _cmake_path=$(get_local_cmake_path)/cmake
     _cmake_cmd="$_cmake_path $cmake_arg_list $_module_source_path"
-    cmake_ok=true
-    eval $_cmake_cmd >/dev/null 2>&1 || { echo -e " ---> \033[0;41m!!!ERROR: local cmake was not installed, try to prepare_cmake.sh\033[0m"; exit 1; }
+    eval $_cmake_cmd > /dev/null 2>&1 || { echo -e " ---> \033[0;41m!!!ERROR: local cmake was not installed, try to prepare_cmake.sh\033[0m"; exit 1; }
     cd -
 
     build_make_project $_module_poducts_path
@@ -225,4 +224,64 @@ generate_versioned_target_name()
     local _versioned_target_name="$_target_name"_`echo $_target_version | sed 's/\./_/g'`
     printf "$_versioned_target_name";
 }
+
+# make_relative_path <absolute> <current>
+make_relative_path()
+{ 
+    printf $( realpath --relative-to=$1 $2 )
+}
+
+# write_exported_variable <exported_var_name> <exported_var_value> <filename>
+write_exported_variable()
+{
+    printf 'export '$1'=$'$1':'$2"\n" | eval $3
+    printf 'echo " ---> '$1'=$'$1'"'"\n\n" | eval $3
+}
+
+generate_setenv_files()
+{
+
+    local _dest_path=$1
+
+    if ! [ -z "$cmake_prefix_path_env_variable" ] ||
+       ! [ -z "$pkg_config_path_env_variable" ] ||
+       ! [ -z "$library_path_env_variable" ]
+    then
+        local _sudo_prefix=""
+        if ! [ $( check_if_cur_user_has_write_permissions $install_prefix_path ) = "true" ]
+            then
+            _sudo_prefix="exec_sudo_cmd"
+        fi
+
+        local _setenv_file=$_dest_path/set_"$target_name"_env.sh
+
+        if [ -f "$_setenv_file" ]
+        then
+            $_sudo_prefix rm -f $_setenv_file
+        fi
+
+        local _write_to_dest_file="$_sudo_prefix tee -a $_setenv_file > /dev/null"
+        printf '# Auto generated file.'"\n" | eval $_write_to_dest_file
+        printf '# The script is expected to be sourced'"\n\n" | eval $_write_to_dest_file
+
+        if ! [ -z "$library_path_env_variable" ]
+        then
+            write_exported_variable "LD_LIBRARY_PATH" "$library_path_env_variable" "$_write_to_dest_file"
+        fi
+
+        if ! [ -z "$cmake_prefix_path_env_variable" ]
+        then
+            write_exported_variable "CMAKE_PREFIX_PATH" "$cmake_prefix_path_env_variable" "$_write_to_dest_file"
+        fi
+
+        if ! [ -z "$pkg_config_path_env_variable" ]
+        then
+            write_exported_variable "PKG_CONFIG_PATH" "$pkg_config_path_env_variable" "$_write_to_dest_file"
+        fi
+
+        $_sudo_prefix chmod +x $_setenv_file
+        echo " ---> Generated for '$target_name' environment file: '$_setenv_file'."
+    fi
+}
+
 
