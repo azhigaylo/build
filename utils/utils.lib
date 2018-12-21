@@ -135,7 +135,6 @@ get_local_cmake_path()
     readonly local _local_cmake_path="$_project_root_path"/"$_project_name"_third_party/host/CMake/bin
 
     printf $_local_cmake_path;
-    return 0;
 }
 
 # If no path to root cmake list specified than root source project directory will be used
@@ -162,12 +161,11 @@ build_cmake_project()
 
     cd $_module_poducts_path
     echo " ---> Running 'cmake $cmake_arg_list $_modulex_source_path'"
-    
-    _cmake_path=$(get_local_cmake_path)/cmake
-    _cmake_cmd= "$_cmake_path $cmake_arg_list $_module_source_path"
-    echo ${_cmake_cmd}
 
-    #/home/azhigaylo/project/homebrain_third_party/host/CMake/bin/cmake $cmake_arg_list $_module_source_path
+    _cmake_path=$(get_local_cmake_path)/cmake
+    _cmake_cmd="$_cmake_path $cmake_arg_list $_module_source_path"
+    eval $_cmake_cmd
+
     cd -
 
     build_make_project $_module_poducts_path
