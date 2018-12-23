@@ -1,13 +1,14 @@
 #!/bin/bash
 
-export PATH_HB=/home/azhigaylo/project/homebrain_third_party/
+readonly local _project_root_path=$( dirname $( dirname $( dirname $( realpath -s $0))))
+readonly local _project_name=$( basename $( dirname $( dirname $( realpath -s $0} ) ) ))
+readonly local _install_path="$_project_root_path"/"$_project_name"_third_party
+readonly local _source_files_path="$_install_path"/cross
+
+export PATH_HB="$_install_path"
 export PKG_CONFIG_PATH=""
 export LD_LIBRARY_PATH=""
 export CMAKE_PREFIX_PATH=""
-
-readonly local _project_root_path=$( dirname $( dirname $( dirname $( realpath -s $0))))
-readonly local _project_name=$( basename $( dirname $( dirname $( realpath -s $0} ) ) ))
-readonly local _source_files_path="$_project_root_path"/"$_project_name"_third_party/cross
 
 cd "$_source_files_path"
     for _env_file in **/set_*_env.sh; do
