@@ -1,5 +1,10 @@
 #!/bin/bash
 
+export PATH_HB=/home/azhigaylo/project/homebrain_third_party/
+export PKG_CONFIG_PATH=""
+export LD_LIBRARY_PATH=""
+export CMAKE_PREFIX_PATH=""
+
 readonly local _project_root_path=$( dirname $( dirname $( dirname $( realpath -s $0))))
 readonly local _project_name=$( basename $( dirname $( dirname $( realpath -s $0} ) ) ))
 readonly local _source_files_path="$_project_root_path"/"$_project_name"_third_party/cross
