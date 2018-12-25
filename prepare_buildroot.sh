@@ -47,6 +47,12 @@ fi
 
 if [ -d $module_install_path ]
 then
+
+    export LD_LIBRARY_PATH=""
+
+    echo " ---> copy beaglebone_homebrain_defconfig to $PATH_HB_INSTALL/host/buildroot/configs"
+    cp "$script_root_path"/cross/beaglebone_homebrain_defconfig $module_install_path/configs
+
     echo " ---> Make default configuration for $target_name"
     cd $module_install_path
     make beaglebone_homebrain_defconfig

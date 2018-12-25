@@ -1,8 +1,8 @@
 set(CMAKE_SYSTEM_NAME Linux)
 set(CMAKE_SYSTEM_PROCESSOR arm)
 
-set(tools $ENV{PATH_HB}/host/buildroot/output/host/)
-set(target $ENV{PATH_HB}/host/buildroot/output/target/)
+set(tools $ENV{PATH_HB_INSTALL}/host/buildroot/output/host/)
+set(target $ENV{PATH_HB_INSTALL}/host/buildroot/output/target/)
 
 set(CMAKE_SYSROOT ${tools}/arm-buildroot-linux-gnueabihf/sysroot)
 set(CMAKE_C_COMPILER ${tools}/bin/arm-linux-gnueabihf-gcc)

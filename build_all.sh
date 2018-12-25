@@ -53,3 +53,21 @@ $script_root_path/build_homebrain.sh $arglist
 $script_root_path/build_pointmonitor.sh $arglist
 $script_root_path/build_mqttgtw.sh $arglist
 $script_root_path/build_csvparser.sh $arglist
+
+if [ "$cross_mode" = true ]
+then
+    # clear LD_LIBRARY_PATH(buildroot requirement)
+    export LD_LIBRARY_PATH=""
+
+    echo " ---> copy beaglebone_homebrain_defconfig to $PATH_HB_INSTALL/host/buildroot/configs"
+    cp "$script_root_path"/cross/beaglebone_homebrain_defconfig $PATH_HB_INSTALL/host/buildroot/configs
+    echo " ---> copy post-image.sh to $PATH_HB_INSTALL/host/buildroot/board/beaglebone"
+    cp "$script_root_path"/cross/post-image.sh $PATH_HB_INSTALL/host/buildroot/board/beaglebone
+
+    echo " ---> Make default configuration for buildroot"
+    cd $PATH_HB_INSTALL/host/buildroot
+    make beaglebone_homebrain_defconfig
+
+    echo " ---> Make buildroot"
+    make 2>&1 | tee buildroot.log
+fi
