@@ -38,4 +38,4 @@ fi
 # build project based on CMake build system
 build_cmake_project $module_source_root_path $module_products_root_path
 
-
+cp $module_source_root_path/config/HBconfig.conf $module_products_root_path
