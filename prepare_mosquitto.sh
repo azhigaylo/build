@@ -64,7 +64,7 @@ fi
 # do NOT use dlt-dbus
 if [ "$cross_mode" = true ]
 then
-    cmake_arg_list=" -DCMAKE_TOOLCHAIN_FILE=/home/azhigaylo/project/homebrain/build/cross/hb_toolchain_def.cmake "
+    cmake_arg_list=" -DCMAKE_TOOLCHAIN_FILE=$script_root_path/cross/hb_toolchain_def.cmake "
 fi
 
 cmake_arg_list+=" -DCMAKE_BUILD_TYPE=\"Release\" -DDOCUMENTATION=OFF "

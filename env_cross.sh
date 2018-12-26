@@ -14,8 +14,11 @@ export CMAKE_PREFIX_PATH=""
 
 cd "$_source_files_path"
     for _env_file in **/set_*_env.sh; do
-        echo " ---> source $_env_file"
-        source $_env_file > /dev/null;
+        if [ $_env_file != "**/set_*_env.sh" ]
+        then
+            echo " ---> source $_env_file"
+            source $_env_file > /dev/null;
+        fi
     done
     echo " ---> source result:"
     echo " ---> PATH_HB_INSTALL='$PATH_HB_INSTALL'"
