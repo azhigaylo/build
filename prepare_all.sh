@@ -67,5 +67,5 @@ fi
 $script_root_path/prepare_cmake.sh $arglist
 $script_root_path/prepare_dlt_daemon.sh $arglist
 $script_root_path/prepare_mosquitto.sh $arglist
-
+$script_root_path/prepare_buildroot.sh $arglist
 
