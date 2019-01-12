@@ -14,8 +14,8 @@ mkdir -vp $TARGET_DIR/opt/bin
 cp $PATH_HB_PRODUCTS/cross/homebrain/src/HomeBrain $TARGET_DIR/opt/bin
 cp $PATH_HB_PRODUCTS/cross/mqttgateway/src/mqttgtw $TARGET_DIR/opt/bin
 mkdir -vp $TARGET_DIR/opt/etc
-cp $PATH_HB_PRODUCTS/cross/homebrain/HBconfig.conf $TARGET_DIR/opt/etc
-cp $PATH_HB_PRODUCTS/cross/mqttgtw/gtw_config.json $TARGET_DIR/opt/etc
+cp $PATH_HB_PRODUCTS/cross/homebrain/HBconfig_target.conf $TARGET_DIR/opt/etc
+cp $PATH_HB_PRODUCTS/cross/mqttgateway/gtw_config_target.json $TARGET_DIR/opt/etc
 
 #copy dlt files
 mkdir -vp $TARGET_DIR/etc/dlt
