@@ -1,0 +1,12 @@
+[Unit]
+Description=Home Brain main service
+PartOf=hb.target
+Requires=systemd-networkd.service mosquitto.service mnt-data.mount
+After=systemd-networkd.service mosquitto.service mnt-data.mount
+
+[Service]
+Type=simple
+ExecStart=/opt/bin/HomeBrain -c /opt/etc/HBconfig_target.conf -d 4 -s 0
+
+[Install]
+WantedBy=hb.target
