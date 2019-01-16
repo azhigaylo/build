@@ -51,17 +51,15 @@ data acquisition system from I/O modules by ModBus RTU protocol, and transfer da
 
 ######  2. Second step it's build all project.There two variant of build:
 
-           - build for HOST
+           - build for HOST, result will be available in folder <homebrain_products>
 ```bash
            ./build_all.sh
 ```
-             result will be available in folder <homebrain_products>
 
-           - build for TARGET    
+           - build for TARGET, result will be available in folder </homebrain_third_party/host/buildroot/output/images/>
 ```bash
            ./build_all.sh -t
 ```
-             result will be available in folder </homebrain_third_party/host/buildroot/output/images/>
 
            - help :
 ```bash
