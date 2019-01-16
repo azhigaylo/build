@@ -31,41 +31,41 @@ data acquisition system from I/O modules by ModBus RTU protocol, and transfer da
 
 ### Installation for development:
 
-######  First step it's HOST preparetion. Needed to setup some development and thirdparty. There two variant of preparation:
-
-     - prepare HOST for host build     
+######  1. First step it's HOST preparetion. Needed to setup some development and thirdparty. There two variant of preparation:
+           - prepare HOST for host build     
+     
 ```bash
-./prepare_all.sh -i
+           ./prepare_all.sh -i
 ```
 
-    - prepare HOST for target build
+           - prepare HOST for target build
 ```bash
-./prepare_all.sh -it
+           ./prepare_all.sh -it
 ```
-      difference is only one things, for target build BuildRoot will be uploaded and builded.
+           difference is only one things, for target build BuildRoot will be uploaded and builded.
 
-      for help :
+           for help :
 ```bash
-./prepare_all.sh --help
+           ./prepare_all.sh --help
 ```
 
-######  Second step it's build all project.There two variant of build:
+######  2. Second step it's build all project.There two variant of build:
 
-    - build for HOST
+           - build for HOST
 ```bash
-./build_all.sh
+           ./build_all.sh
 ```
-     result will be available in folder <homebrain_products>
+           result will be available in folder <homebrain_products>
 
-    - build for TARGET    
+           - build for TARGET    
 ```bash
-./build_all.sh -t
+           ./build_all.sh -t
 ```
-    result will be available in folder </homebrain_third_party/host/buildroot/output/images/>
+           result will be available in folder </homebrain_third_party/host/buildroot/output/images/>
 
-    for help :
+           for help :
 ```bash
-./build_all.sh --help
+           ./build_all.sh --help
 ```
 
 ### For possible contributors:
