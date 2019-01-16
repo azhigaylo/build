@@ -42,9 +42,9 @@ data acquisition system from I/O modules by ModBus RTU protocol, and transfer da
 ```bash
            ./prepare_all.sh -it
 ```
-           difference is only one things, for target build BuildRoot will be uploaded and builded.
+             difference is only one things, for target build BuildRoot will be uploaded and builded.
 
-           for help :
+           - help :
 ```bash
            ./prepare_all.sh --help
 ```
@@ -55,15 +55,15 @@ data acquisition system from I/O modules by ModBus RTU protocol, and transfer da
 ```bash
            ./build_all.sh
 ```
-           result will be available in folder <homebrain_products>
+             result will be available in folder <homebrain_products>
 
            - build for TARGET    
 ```bash
            ./build_all.sh -t
 ```
-           result will be available in folder </homebrain_third_party/host/buildroot/output/images/>
+             result will be available in folder </homebrain_third_party/host/buildroot/output/images/>
 
-           for help :
+           - help :
 ```bash
            ./build_all.sh --help
 ```
