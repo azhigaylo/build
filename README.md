@@ -2,26 +2,27 @@
 ### HomeBrain project description:
 
 OS Linux based software package, which allows turn your laptop or mini computer (BeagleBoard) into a centralized 
-data acquisition system from I/O modules by ModBus RTU protocol, and transfer data to the user via frandly MQTT protocol.
+data acquisition system from I/O modules by ModBus RTU protocol, and transfer data to the user via friendly MQTT protocol.
 
 ### Project includes follow components:
 
-1. Build        - a set of scripts for project build under Linux Host and Linux Target
-                   * Linux Host build is convenient for debugging the project and further transition to the target.
-                     as result you will have set of binaries, which can be started on Linux Ubuntu and similar.
-                   * Linux Target build based on BuildRoot package, result is an image of the file system
-                     in ext2/ext4 format, which are ready for extractiin on SD card to use in miniPC (BeagleBone)
-2. HomeBrain    - the main process, which communicate with I/O modules via ModBus RTU protocol.
-                  reads ModBus registers and saves data in the internal table of points (discrete, analog)
-3. mqttgtw      - the process that converts data from the HomeBrain point table to MQTT topic values.
-4. pointmonitor - This tools allows you to view the current state of the HomeBrain points (discrete, analog). 
-                  It is not necessary for the system operation, and is needed only on debugging stage.
-5. csvparser    - parser *.csv documents, which describes the configuration for mqttgtw.
+1. **Build**        - a set of scripts for project build under Linux Host and Linux Target
+                      **Linux Host build** is convenient for debugging the project and further transition to the target.
+                      As result you will have set of binaries, which can be started on Linux Ubuntu and similar.
+                      **Linux Target build** based on BuildRoot package, result is an image of the file system
+                      in ext2/ext4 format, which are ready for extracting on SD card to use in miniPC (BeagleBone)
+2. **HomeBrain**    - the main process, which communicate with I/O modules via ModBus RTU protocol.
+                      Reads ModBus registers and saves data in the internal table of points (discrete, analog)
+3. **mqttgtw**      - the process that converts data from the HomeBrain point table to MQTT topic values.
+4. **pointmonitor** - This tools allows you to view the current state of the HomeBrain points (discrete, analog). 
+                      It is not necessary for the system operation, and needed only on debugging stage.
+5. **csvparser**    - parser for *.csv documents, which describes the configuration for mqttgtw.
 
 ### Project structure
 
-Build - it's main git repository.
-HomeBrain/mqttgtw/pointmonitor/csvparser - it's git submodules.
+**Build** - it's main git repository.
+
+**HomeBrain/mqttgtw/pointmonitor/csvparser** - it's git submodules.
 
 ### Supported system :
 
@@ -54,7 +55,7 @@ HomeBrain/mqttgtw/pointmonitor/csvparser - it's git submodules.
 ```bash
            ./prepare_all.sh -it
 ```
-             difference is only one things, for target build BuildRoot will be uploaded and builded.
+             difference is only in one things, for target build, BuildRoot will be uploaded and builded.
 
            - help :
 ```bash
