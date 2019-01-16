@@ -31,6 +31,39 @@ data acquisition system from I/O modules by ModBus RTU protocol, and transfer da
 
 ### Installation for development:
 
+1. First step it's HOST preparetion. Needed to setup some development and thirdparty.
+   There two variant of preparation:
+   * prepare HOST for host build
+   ```bash
+   ./prepare_all.sh -i
+   ```
+   * prepare HOST for target build
+   ```bash
+   ./prepare_all.sh -it
+   ```
+   difference is only one things, for target build BuildRoot will be uploaded and builded.
+   for help :
+   ```bash
+   ./prepare_all.sh --help
+   ```
+
+2. Second step it's build all project.
+   There two variant of build:
+   * build for HOST
+   ```bash
+   ./build_all.sh
+   ```
+     result will be available in folder <homebrain_products>
+   * build for TARGET
+     result will be available in folder </homebrain_third_party/host/buildroot/output/images/>
+   ```bash
+   ./build_all.sh -t
+   ```
+   for help :
+   ```bash
+   ./build_all.sh --help
+   ```
+
 ### For possible contributors:
 
 Pull requests are welcome.
