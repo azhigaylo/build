@@ -6,11 +6,14 @@ data acquisition system from I/O modules by ModBus RTU protocol, and transfer da
 
 ### Project includes follow components:
 
-1. **Build**        - a set of scripts for project build under Linux Host and Linux Target
-                      **Linux Host build** is convenient for debugging the project and further transition to the target.
+1. **Build**        - a set of scripts for project build under Linux Host and Linux Target.
+
+                      **Linux Host build** is usefull for debugging the project and further transition to the target.
                       As result you will have set of binaries, which can be started on Linux Ubuntu and similar.
+
                       **Linux Target build** based on BuildRoot package, result is an image of the file system
                       in ext2/ext4 format, which are ready for extracting on SD card to use in miniPC (BeagleBone)
+
 2. **HomeBrain**    - the main process, which communicate with I/O modules via ModBus RTU protocol.
                       Reads ModBus registers and saves data in the internal table of points (discrete, analog)
 3. **mqttgtw**      - the process that converts data from the HomeBrain point table to MQTT topic values.
