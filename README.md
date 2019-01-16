@@ -45,6 +45,8 @@ data acquisition system from I/O modules by ModBus RTU protocol, and transfer da
    mkdir /home/homebrain
    cd /home/homebrain
    git clone https://Toxin@bitbucket.org/Toxin/build.git
+   git submodule init
+   git submodule update
 ```
 
 ######  2. First step it's HOST preparetion. Needed to setup some development and thirdparty. There two variant of preparation:
