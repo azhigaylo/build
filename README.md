@@ -18,6 +18,10 @@ data acquisition system from I/O modules by ModBus RTU protocol, and transfer da
                   It is not necessary for the system operation, and is needed only on debugging stage.
 5. csvparser    - parser *.csv documents, which describes the configuration for mqttgtw.
 
+### Project structure
+
+Build - it's main git repository.
+HomeBrain/mqttgtw/pointmonitor/csvparser - it's git submodules.
 
 ### Supported system :
 
@@ -31,9 +35,17 @@ data acquisition system from I/O modules by ModBus RTU protocol, and transfer da
 
 ### Installation for development:
 
-######  1. First step it's HOST preparetion. Needed to setup some development and thirdparty. There two variant of preparation:
+######  1. clone all project:
+
+```bash
+   mkdir /home/homebrain
+   cd /home/homebrain
+   git clone https://Toxin@bitbucket.org/Toxin/build.git
+```
+
+######  2. First step it's HOST preparetion. Needed to setup some development and thirdparty. There two variant of preparation:
            - prepare HOST for host build     
-     
+
 ```bash
            ./prepare_all.sh -i
 ```
@@ -49,7 +61,7 @@ data acquisition system from I/O modules by ModBus RTU protocol, and transfer da
            ./prepare_all.sh --help
 ```
 
-######  2. Second step it's build all project.There two variant of build:
+######  3. Second step it's build all project.There two variant of build:
 
            - build for HOST, result will be available in folder <homebrain_products>
 ```bash
