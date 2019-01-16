@@ -31,14 +31,14 @@ data acquisition system from I/O modules by ModBus RTU protocol, and transfer da
 
 ### Installation for development:
 
-1. First step it's HOST preparetion. Needed to setup some development and thirdparty.
-There two variant of preparation:
-- prepare HOST for host build
+1.   First step it's HOST preparetion. Needed to setup some development and thirdparty. There two variant of preparation:
+
+-   prepare HOST for host build
 ```bash
 ./prepare_all.sh -i
 ```
 
-- prepare HOST for target build
+-   prepare HOST for target build
 ```bash
 ./prepare_all.sh -it
 ```
@@ -49,15 +49,15 @@ for help :
 ./prepare_all.sh --help
 ```
 
-2. Second step it's build all project.There two variant of build:
+2.   Second step it's build all project.There two variant of build:
 
-- build for HOST
+-   build for HOST
 ```bash
 ./build_all.sh
 ```
 result will be available in folder <homebrain_products>
 
-- build for TARGET
+-   build for TARGET
 ```bash
 ./build_all.sh -t
 ```
