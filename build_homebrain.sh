@@ -11,7 +11,7 @@ set -e
 # parse cmd options.
 source $( dirname $( realpath -s $0 ))/utils/build_option_parser.lib
 
-readonly target_name=homebrain
+readonly target_name=homebrain_core
 
 readonly module_source_root_path="$source_root_path/$target_name"
 echo " ---> Source path for '$target_name' = $module_source_root_path"
