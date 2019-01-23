@@ -23,9 +23,14 @@ then
           fi
       done
       echo " ---> source result:"
+      echo " ---> PATH_HB_PRODUCTS='$PATH_HB_PRODUCTS'"
       echo " ---> PATH_HB_INSTALL='$PATH_HB_INSTALL'"
       echo " ---> LD_LIBRARY_PATH='$LD_LIBRARY_PATH'"
       echo " ---> CMAKE_PREFIX_PATH='$CMAKE_PREFIX_PATH'"
       echo " ---> PKG_CONFIG_PATH='$PKG_CONFIG_PATH'"
   cd -
+else
+      echo " ---> source result:"
+      echo " ---> PATH_HB_PRODUCTS='$PATH_HB_PRODUCTS'"
+      echo " ---> PATH_HB_INSTALL='$PATH_HB_INSTALL'"
 fi
