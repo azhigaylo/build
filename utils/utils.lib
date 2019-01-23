@@ -161,7 +161,7 @@ build_cmake_project()
 
     _cmake_path=$(get_local_cmake_path)/cmake
     _cmake_cmd="$_cmake_path $cmake_arg_list $_module_source_path"
-    echo " ---> Running '$_cmake_cmd $cmake_arg_list $_modulex_source_path'"
+    echo " ---> Running '$_cmake_cmd $cmake_arg_list $_module_source_path'"
     cd $_module_poducts_path
     eval $_cmake_cmd > /dev/null 2>&1 || { echo -e " ---> \033[0;41m!!!ERROR: local cmake was not installed, try to prepare_cmake.sh\033[0m"; exit 1; }
     cd -

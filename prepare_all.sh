@@ -18,9 +18,9 @@ source $( dirname $( realpath -s $0 ))/utils/prepare_option_parser.lib
 # source all environment variable needed to find cross compiling toolchain
 if [ "$cross_mode" = false ]
 then
-    echo "source env_host.sh"
+    source env_host.sh
 else
-    echo "source env_cross.sh"
+    source env_cross.sh
 fi
 
 echo "
