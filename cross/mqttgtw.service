@@ -1,12 +1,12 @@
 [Unit]
 Description=mqtt gateway service
 PartOf=hb.target
-Requires=systemd-networkd.service mosquitto.service mnt-data.mount homebrain.service
-After=systemd-networkd.service mosquitto.service mnt-data.mount homebrain.service
+Requires=mosquitto.service mnt-data.mount homebrain.service
+After=mosquitto.service mnt-data.mount homebrain.service
 
 [Service]
 Type=simple
-ExecStart=/opt/bin/mqttgtw -c /opt/etc/gtw_config_target.json -t /mnt/data/project/gtw_table.json -d 4 -s 0
+ExecStart=/opt/bin/mqttgtw -c /opt/etc/gtw_config_target.json -t /mnt/data/project/gtw_table_gen.json -d 4 -s 0
 
 [Install]
 WantedBy=hb.target

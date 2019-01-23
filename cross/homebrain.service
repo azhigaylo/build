@@ -1,8 +1,8 @@
 [Unit]
 Description=Home Brain main service
 PartOf=hb.target
-Requires=systemd-networkd.service mosquitto.service mnt-data.mount
-After=systemd-networkd.service mosquitto.service mnt-data.mount
+Requires=mosquitto.service mnt-data.mount
+After=mosquitto.service mnt-data.mount
 
 [Service]
 Type=simple

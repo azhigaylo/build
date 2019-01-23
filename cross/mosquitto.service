@@ -1,0 +1,12 @@
+[Unit]
+Description=Mosquitto MQTT broker
+
+[Service]
+ExecStart=/usr/sbin/mosquitto -c /etc/mosquitto/mosquitto.conf
+ExecReload=/bin/kill -HUP $MAINPID
+Requires=network-online.target
+After=network-online.target
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
