@@ -17,6 +17,9 @@ mkdir -vp $TARGET_DIR/opt/etc
 cp $PATH_HB_PRODUCTS/cross/homebrain_core/HBconfig_target.conf $TARGET_DIR/opt/etc
 cp $PATH_HB_PRODUCTS/cross/mqttgateway/gtw_config_target.json $TARGET_DIR/opt/etc
 
+#copy mosquitto files
+cp $PATH_HB_CROSS_FILES/mosquitto.conf $TARGET_DIR/etc/mosquitto/
+
 #copy dlt files
 mkdir -vp $TARGET_DIR/etc/dlt
 cp -r $PATH_HB_INSTALL/cross/dlt-daemon/etc/dlt.conf $TARGET_DIR/etc/dlt
@@ -34,10 +37,10 @@ cp $PATH_HB_CROSS_FILES/homebrain.service $TARGET_DIR/etc/systemd/system
 cp $PATH_HB_CROSS_FILES/mqttgtw.service $TARGET_DIR/etc/systemd/system
 cp $PATH_HB_CROSS_FILES/mnt-data.mount $TARGET_DIR/etc/systemd/system
 cp $PATH_HB_CROSS_FILES/mosquitto.service $TARGET_DIR/usr/lib/systemd/system
+cp $PATH_HB_CROSS_FILES/dhcp.network $TARGET_DIR/etc/systemd/network
 
 cd $TARGET_DIR/etc/systemd/system
-mkdir -vp hb.target.wants
-sudo ln -sf ../../../../etc/systemd/system/hb.target hb.target.wants/hb.target
+sudo ln -sf ../../../../etc/systemd/system/hb.target multi-user.target.wants/hb.target
 cd -
 
 # HOST_DIR = /home/azhigaylo/project/homebrain_third_party/host/buildroot/output/host
