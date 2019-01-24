@@ -35,6 +35,11 @@ cp $PATH_HB_CROSS_FILES/mqttgtw.service $TARGET_DIR/etc/systemd/system
 cp $PATH_HB_CROSS_FILES/mnt-data.mount $TARGET_DIR/etc/systemd/system
 cp $PATH_HB_CROSS_FILES/mosquitto.service $TARGET_DIR/usr/lib/systemd/system
 
+cd $TARGET_DIR/etc/systemd/system
+mkdir -vp hb.target.wants
+sudo ln -sf ../../../../etc/systemd/system/hb.target hb.target.wants/hb.target
+cd -
+
 # HOST_DIR = /home/azhigaylo/project/homebrain_third_party/host/buildroot/output/host
 # STAGING_DIR = /home/azhigaylo/project/homebrain_third_party/host/buildroot/output/host/arm-buildroot-linux-gnueabihf/sysroot
 # TARGET_DIR = /home/azhigaylo/project/homebrain_third_party/host/buildroot/output/target
