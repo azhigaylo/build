@@ -1,0 +1,7 @@
+/dev/root / auto ro 0 1
+
+tmpfs /tmp tmpfs nodev,nosuid,size=32M 0 0
+tmpfs /srv tmpfs nodev,size=512K 0 0
+tmpfs /var/log tmpfs defaults,noatime,size=1M 0 0
+tmpfs /var/tmp tmpfs defaults,noatime,size=512K 0 0
+tmpfs /var/run tmpfs defaults,noatime,size=512K 0 0

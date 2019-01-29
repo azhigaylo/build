@@ -31,13 +31,15 @@ cp -r $PATH_HB_INSTALL/cross/dlt-daemon/lib/libdlt.so.2 $TARGET_DIR/usr/lib
 cp -r $PATH_HB_INSTALL/cross/dlt-daemon/lib/libdlt.so.2.17.0 $TARGET_DIR/usr/lib
 cp $PATH_HB_INSTALL/cross/dlt-daemon/bin/dlt-daemon $TARGET_DIR/usr/sbin
 
-#copy systemd files
+#copy system & systemd files
+cp $PATH_HB_CROSS_FILES/fstab $TARGET_DIR/etc
 cp $PATH_HB_CROSS_FILES/hb.target $TARGET_DIR/etc/systemd/system
 cp $PATH_HB_CROSS_FILES/homebrain.service $TARGET_DIR/etc/systemd/system
 cp $PATH_HB_CROSS_FILES/mqttgtw.service $TARGET_DIR/etc/systemd/system
 cp $PATH_HB_CROSS_FILES/mnt-data.mount $TARGET_DIR/etc/systemd/system
 cp $PATH_HB_CROSS_FILES/mosquitto.service $TARGET_DIR/usr/lib/systemd/system
 cp $PATH_HB_CROSS_FILES/dhcp.network $TARGET_DIR/etc/systemd/network
+cp $PATH_HB_CROSS_FILES/journald.conf $TARGET_DIR/etc/systemd
 
 cd $TARGET_DIR/etc/systemd/system
 sudo ln -sf ../../../../etc/systemd/system/hb.target multi-user.target.wants/hb.target
