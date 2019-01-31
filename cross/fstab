@@ -5,3 +5,4 @@ tmpfs /srv tmpfs nodev,size=50M 0 0
 tmpfs /var/log tmpfs defaults,noatime,size=50M 0 0
 tmpfs /var/tmp tmpfs defaults,noatime,size=50M 0 0
 tmpfs /var/run tmpfs defaults,noatime,size=50M 0 0
+tmpfs /var/lib tmpfs defaults,noatime,size=10M 0 0

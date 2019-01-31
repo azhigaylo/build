@@ -16,6 +16,8 @@ cp $PATH_HB_PRODUCTS/cross/mqttgateway/src/mqttgtw $TARGET_DIR/opt/bin
 mkdir -vp $TARGET_DIR/opt/etc
 cp $PATH_HB_PRODUCTS/cross/homebrain_core/HBconfig_target.conf $TARGET_DIR/opt/etc
 cp $PATH_HB_PRODUCTS/cross/mqttgateway/gtw_config_target.json $TARGET_DIR/opt/etc
+# preset data mountpoint
+mkdir -vp $TARGET_DIR/mnt/data
 
 #copy mosquitto files
 cp $PATH_HB_CROSS_FILES/mosquitto.conf $TARGET_DIR/etc/mosquitto/
