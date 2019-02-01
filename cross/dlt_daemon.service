@@ -1,0 +1,12 @@
+[Unit]
+Description=Dlt daemon service
+PartOf=hb.target
+Requires=mnt-data.mount
+After=mnt-data.mount
+
+[Service]
+Type=simple
+ExecStart=/usr/sbin/dlt-daemon -c /etc/dlt/dlt.conf
+
+[Install]
+WantedBy=hb.target

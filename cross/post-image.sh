@@ -39,6 +39,7 @@ cp $PATH_HB_CROSS_FILES/hb.target $TARGET_DIR/etc/systemd/system
 cp $PATH_HB_CROSS_FILES/homebrain.service $TARGET_DIR/etc/systemd/system
 cp $PATH_HB_CROSS_FILES/mqttgtw.service $TARGET_DIR/etc/systemd/system
 cp $PATH_HB_CROSS_FILES/mnt-data.mount $TARGET_DIR/etc/systemd/system
+cp $PATH_HB_CROSS_FILES/dlt_daemon.service $TARGET_DIR/etc/systemd/system
 cp $PATH_HB_CROSS_FILES/mosquitto.service $TARGET_DIR/usr/lib/systemd/system
 cp $PATH_HB_CROSS_FILES/dhcp.network $TARGET_DIR/etc/systemd/network
 cp $PATH_HB_CROSS_FILES/journald.conf $TARGET_DIR/etc/systemd
