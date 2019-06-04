@@ -61,8 +61,8 @@ then
 
     echo " ---> copy beaglebone_homebrain_defconfig to $PATH_HB_INSTALL/host/buildroot/configs"
     cp "$script_root_path"/cross/beaglebone_homebrain_defconfig $PATH_HB_INSTALL/host/buildroot/configs
-    echo " ---> copy post-image.sh to $PATH_HB_INSTALL/host/buildroot/board/beaglebone"
-    cp "$script_root_path"/cross/post-image.sh $PATH_HB_INSTALL/host/buildroot/board/beaglebone
+    echo " ---> copy post-build.sh to $PATH_HB_INSTALL/host/buildroot/board/beaglebone"
+    cp "$script_root_path"/cross/post-build.sh $PATH_HB_INSTALL/host/buildroot/board/beaglebone
 
     echo " ---> Make default configuration for buildroot"
     cd $PATH_HB_INSTALL/host/buildroot

@@ -16,6 +16,7 @@ source $( dirname $( realpath -s $0 ))/utils/prepare_option_parser.lib
 
 readonly target_name=buildroot
 readonly repolink="https://git.buildroot.net/git/buildroot.git"
+readonly build_root_tag="2018.11.4"
 
 if [ "$cross_mode" = true ]
 then
@@ -42,7 +43,7 @@ if ! [ -d $module_install_path ]
 then
     mkdir -vp $module_install_path
     echo " ---> Cloning $repolink to $module_install_path"
-    git -C $module_install_path clone $repolink $module_install_path
+    git -C $module_install_path clone --branch $build_root_tag $repolink $module_install_path
 fi
 
 if [ -d $module_install_path ]
