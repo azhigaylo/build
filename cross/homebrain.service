@@ -7,6 +7,8 @@ After=mosquitto.service mnt-data.mount dlt_daemon.service
 [Service]
 Type=simple
 ExecStart=/opt/bin/HomeBrain -c /opt/etc/HBconfig_target.conf -d 4 -s 1
+Restart=always
+RestartSec=1
 
 [Install]
 WantedBy=hb.target
