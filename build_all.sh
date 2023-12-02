@@ -53,6 +53,7 @@ $script_root_path/build_homebrain.sh $arglist
 $script_root_path/build_pointmonitor.sh $arglist
 $script_root_path/build_mqttgtw.sh $arglist
 $script_root_path/build_csvparser.sh $arglist
+$script_root_path/build_wirelessbridge.sh $arglist
 
 if [ "$cross_mode" = true ]
 then
