@@ -24,7 +24,7 @@ then
     exit 0;
 fi
 
-libs_to_install=" binutils patch gzip bzip2 perl tar cpio python unzip rsync wget libncurses-dev "
+libs_to_install=" binutils patch gzip bzip2 perl tar cpio python-is-python3 unzip rsync wget libncurses-dev "
 
 echo " ---> Installing required libraries: $libs_to_install"
 install_package $libs_to_install

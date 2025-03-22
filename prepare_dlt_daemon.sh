@@ -14,7 +14,7 @@ set -e
 source $( dirname $( realpath -s $0 ))/utils/prepare_option_parser.lib
 
 readonly target_name=dlt-daemon
-readonly required_version="2.17.0"
+readonly required_version="2.18.10"
 readonly repolink="https://github.com/GENIVI/dlt-daemon.git"
 
 # check if exists
@@ -38,7 +38,7 @@ else
     echo " ---> Preparation for $target_name REQUIRED."
 fi
 
-libs_to_install=" zlib1g-dev libdbus-glib-1-dev "
+libs_to_install=" zlib1g-dev libdbus-glib-1-dev  libsystemd-dev "
 echo " ---> Installing required libraries: $libs_to_install"
 install_package $libs_to_install
 

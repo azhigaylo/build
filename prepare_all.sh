@@ -36,7 +36,7 @@ echo " ---> !!!(ROOT PERMISSIONS REQUIRED) Running sudo apt-get update.."
 sudo apt-get update
 
 # needed for boost setup
-tools_to_install+=" build-essential python-dev autotools-dev libicu-dev libbz2-dev g++ "
+tools_to_install+=" build-essential python-dev-is-python3 autotools-dev libicu-dev libbz2-dev g++ "
 # another tools
 tools_to_install+=" curl make gcc unzip git "
 echo -e " ---> \033[0;7m Installing required tools: \033[0m $tools_to_install "

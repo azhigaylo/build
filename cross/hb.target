@@ -9,7 +9,7 @@
 
 [Unit]
 Description=Home Brain taget
-Wants=dlt_daemon.service homebrain.service mqttgtw.service
+Wants=dlt_daemon.service homebrain.service mqttgtw.service mqttbridge.service
 Requires=network-online.target
 After=network-online.target
 

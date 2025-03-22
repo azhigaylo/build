@@ -1,0 +1,15 @@
+[Unit]
+Description=mqtt bridge service
+PartOf=hb.target
+Requires=mosquitto.service mnt-data.mount homebrain.service dlt_daemon.service
+After=mosquitto.service mnt-data.mount homebrain.service dlt_daemon.service
+
+[Service]
+Type=simple
+Environment="LD_LIBRARY_PATH=/opt/lib/wirelessbridge"
+ExecStart=/opt/bin/wirelessbridge -c /opt/etc/bridge_config_target.json -d 4 -s 1
+Restart=always
+RestartSec=1
+
+[Install]
+WantedBy=hb.target

@@ -13,9 +13,14 @@ cp board/beaglebone/uEnv.txt $BINARIES_DIR/uEnv.txt
 mkdir -vp $TARGET_DIR/opt/bin
 cp $PATH_HB_PRODUCTS/cross/homebrain_core/src/HomeBrain $TARGET_DIR/opt/bin
 cp $PATH_HB_PRODUCTS/cross/mqttgateway/src/mqttgtw $TARGET_DIR/opt/bin
+cp $PATH_HB_PRODUCTS/cross/wirelessbridge/src/wirelessbridge $TARGET_DIR/opt/bin
+mkdir -vp $TARGET_DIR/opt/lib/wirelessbridge
+find cp $PATH_HB_PRODUCTS/cross/wirelessbridge/src/ -name '*.so' | xargs cp -t $TARGET_DIR/opt/lib/wirelessbridge
+
 mkdir -vp $TARGET_DIR/opt/etc
 cp $PATH_HB_PRODUCTS/cross/homebrain_core/HBconfig_target.conf $TARGET_DIR/opt/etc
 cp $PATH_HB_PRODUCTS/cross/mqttgateway/gtw_config_target.json $TARGET_DIR/opt/etc
+cp $PATH_HB_PRODUCTS/cross/wirelessbridge/bridge_config_target.json $TARGET_DIR/opt/etc
 # preset data mountpoint
 mkdir -vp $TARGET_DIR/mnt/data
 
@@ -38,6 +43,7 @@ cp $PATH_HB_CROSS_FILES/fstab $TARGET_DIR/etc
 cp $PATH_HB_CROSS_FILES/hb.target $TARGET_DIR/etc/systemd/system
 cp $PATH_HB_CROSS_FILES/homebrain.service $TARGET_DIR/etc/systemd/system
 cp $PATH_HB_CROSS_FILES/mqttgtw.service $TARGET_DIR/etc/systemd/system
+cp $PATH_HB_CROSS_FILES/mqttbridge.service $TARGET_DIR/etc/systemd/system
 cp $PATH_HB_CROSS_FILES/mnt-data.mount $TARGET_DIR/etc/systemd/system
 cp $PATH_HB_CROSS_FILES/dlt_daemon.service $TARGET_DIR/etc/systemd/system
 cp $PATH_HB_CROSS_FILES/mosquitto.service $TARGET_DIR/usr/lib/systemd/system
