@@ -68,6 +68,7 @@ then
 fi
 
 cmake_arg_list+=" -DCMAKE_BUILD_TYPE=\"Release\" -DDOCUMENTATION=OFF "
+cmake_arg_list+=" -DCMAKE_POLICY_VERSION_MINIMUM=3.5 "
 
 # build project based on CMake build system
 # install if requested

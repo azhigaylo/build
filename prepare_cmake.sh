@@ -14,7 +14,7 @@ set -e
 source $( dirname $( realpath -s $0 ))/utils/prepare_option_parser.lib
 
 readonly target_name="CMake"
-readonly required_version="3.16.5"
+readonly required_version="3.28.1"
 readonly repolink="https://github.com/Kitware/CMake.git"
 
 if [ "$cross_mode" = true ]
